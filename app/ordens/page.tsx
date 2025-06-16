@@ -31,7 +31,7 @@ const generateOSCode = () => {
   return `${currentYear}${sequence.toString().padStart(6, "0")}`
 }
 
-// Mock data baseado no SIGELU
+// Mock data baseado no DIRETAS
 const ordensServico = [
   {
     id: 1,
