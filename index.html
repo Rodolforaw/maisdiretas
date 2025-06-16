@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMAR - Sistema de Controle de Obras</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <!-- Background Pattern -->
+            <div class="background-pattern">
+                <div class="pattern-circle pattern-1"></div>
+                <div class="pattern-circle pattern-2"></div>
+                <div class="pattern-circle pattern-3"></div>
+                <div class="pattern-circle pattern-4"></div>
+            </div>
+
+            <!-- Waves decoration -->
+            <div class="waves-decoration">
+                <svg viewBox="0 0 1200 120" class="waves-svg">
+                    <path d="M0,60 C300,120 900,0 1200,60 L1200,120 L0,120 Z"></path>
+                </svg>
+            </div>
+
+            <div class="login-content">
+                <!-- Logo and Company Info -->
+                <div class="company-header">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                    </div>
+                    <h1 class="company-name">SOMAR</h1>
+                    <p class="company-subtitle">Soluções em Obras e Meio Ambiente</p>
+                    <div class="location-info">
+                        <i class="fas fa-water"></i>
+                        <span>Maricá - RJ</span>
+                    </div>
+                </div>
+
+                <div class="login-card">
+                    <div class="card-header">
+                        <h2>Acesso ao +Diretas</h2>
+                        <p>Sistema de Controle de Obras Públicas</p>
+                    </div>
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <label for="username">Usuário</label>
+                            <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Senha</label>
+                            <div class="password-input">
+                                <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword()">
+                                    <i class="fas fa-eye" id="passwordIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-login">
+                            Entrar no Sistema
+                        </button>
+                    </form>
+
+                    <div class="login-divider">
+                        <span>Ou</span>
+                    </div>
+
+                    <div class="login-actions">
+                        <button type="button" class="btn-outline" onclick="showCadastro()">
+                            <i class="fas fa-user-plus"></i>
+                            Cadastrar Novo Usuário
+                        </button>
+                        <button type="button" class="btn-outline btn-test" onclick="loginTeste()">
+                            <i class="fas fa-flask"></i>
+                            Modo Teste (Admin)
+                        </button>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#" onclick="showForgotPassword()">Esqueceu sua senha?</a>
+                    </div>
+                </div>
+
+                <div class="copyright">
+                    © 2024 SOMAR - Todos os direitos reservados
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="app-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h2>SOMAR</h2>
+                            <p>+Diretas</p>
+                        </div>
+                    </div>
+                    <div class="test-badge" id="testBadge" style="display: none;">
+                        <i class="fas fa-flask"></i>
+                        Teste
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <h3>Menu Principal</h3>
+                        <ul>
+                            <li><a href="#" onclick="showPage('dashboard')" class="nav-link active">
+                                <i class="fas fa-home"></i> Dashboard
+                            </a></li>
+                            <li><a href="#" onclick="showPage('obras')" class="nav-link">
+                                <i class="fas fa-hard-hat"></i> Obras
+                            </a></li>
+                            <li><a href="#" onclick="showPage('diario')" class="nav-link">
+                                <i class="fas fa-file-text"></i> Diário de Obras
+                            </a></li>
+                            <li><a href="#" onclick="showPage('mapa')" class="nav-link">
+                                <i class="fas fa-map-marker-alt"></i> Mapa de Obras
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('relatorios')" class="nav-link">
+                                <i class="fas fa-chart-bar"></i> Relatórios
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('funcionarios')" class="nav-link">
+                                <i class="fas fa-users"></i> Funcionários
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('materiais')" class="nav-link">
+                                <i class="fas fa-boxes"></i> Materiais
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('maquinario')" class="nav-link">
+                                <i class="fas fa-truck"></i> Maquinário
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('vistoria')" class="nav-link">
+                                <i class="fas fa-map"></i> Vistoria/Produção
+                            </a></li>
+                            <li class="encarregado-only"><a href="#" onclick="showPage('ponto')" class="nav-link">
+                                <i class="fas fa-user-check"></i> Controle de Ponto
+                            </a></li>
+                            <li class="encarregado-only"><a href="#" onclick="showPage('fotos')" class="nav-link">
+                                <i class="fas fa-camera"></i> Fotos
+                            </a></li>
+                            <li class="encarregado-only"><a href="#" onclick="showPage('cronograma')" class="nav-link">
+                                <i class="fas fa-calendar"></i> Cronograma
+                            </a></li>
+                            <li class="encarregado-only"><a href="#" onclick="showPage('solicitacoes')" class="nav-link">
+                                <i class="fas fa-clipboard-list"></i> Solicitações
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('configuracoes')" class="nav-link">
+                                <i class="fas fa-cog"></i> Configurações
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('ordens')" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Ordens de Serviço
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('cadastros')" class="nav-link">
+                                <i class="fas fa-database"></i> Cadastros
+                            </a></li>
+                            <li class="admin-only"><a href="#" onclick="showPage('usuarios')" class="nav-link">
+                                <i class="fas fa-users-cog"></i> Usuários
+                            </a></li>
+                        </ul>
+                    </div>
+
+                    <div class="nav-section">
+                        <h3>Ações Rápidas</h3>
+                        <ul>
+                            <li><a href="#" onclick="showNovaObra()" class="nav-link quick-action">
+                                <i class="fas fa-plus"></i> Nova Obra
+                            </a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="user-info" onclick="toggleUserMenu()">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-details">
+                            <span class="user-name" id="userName">Usuário</span>
+                            <span class="user-role" id="userRole">Cargo</span>
+                        </div>
+                        <i class="fas fa-chevron-up"></i>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <a href="#" onclick="showPage('configuracoes')">
+                            <i class="fas fa-cog"></i> Configurações
+                        </a>
+                        <a href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </div>
+                    <div class="location-footer">
+                        <i class="fas fa-water"></i>
+                        <span>Maricá - RJ</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Header -->
+                <header class="main-header">
+                    <div class="header-left">
+                        <button class="sidebar-toggle" onclick="toggleSidebar()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="header-title">
+                            <h1 id="pageTitle">Dashboard</h1>
+                            <p id="pageSubtitle">Bem-vindo ao sistema +Diretas da SOMAR</p>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="user-greeting">
+                            <span id="userGreeting">Bom dia!</span>
+                            <span id="headerUserName">Usuário</span>
+                        </div>
+                        <div class="notifications">
+                            <button class="notification-btn" onclick="toggleNotifications()">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Page Content -->
+                <div class="page-content" id="pageContent">
+                    <!-- Dashboard Content -->
+                    <div id="dashboardContent" class="content-section active">
+                        <!-- Statistics Cards -->
+                        <div class="stats-grid">
+                            <div class="stat-card stat-primary">
+                                <div class="stat-icon">
+                                    <i class="fas fa-hard-hat"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>156</h3>
+                                    <p>Total de Obras</p>
+                                    <span class="stat-change positive">+12% este mês</span>
+                                </div>
+                            </div>
+                            <div class="stat-card stat-info">
+                                <div class="stat-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>89</h3>
+                                    <p>Em Andamento</p>
+                                    <span class="stat-change">57% do total</span>
+                                </div>
+                            </div>
+                            <div class="stat-card stat-success">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>234</h3>
+                                    <p>Funcionários Ativos</p>
+                                    <span class="stat-change">Distribuídos em 89 obras</span>
+                                </div>
+                            </div>
+                            <div class="stat-card stat-warning">
+                                <div class="stat-icon">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>R$ 15M</h3>
+                                    <p>Orçamento Total</p>
+                                    <span class="stat-change">58% utilizado</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charts and Tables -->
+                        <div class="dashboard-grid">
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Obras por Distrito</h3>
+                                    <button class="btn-icon" onclick="refreshDistrictData()">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                                <div class="card-content">
+                                    <div class="district-list" id="districtList">
+                                        <!-- District data will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-card">
+                                <div class="card-header">
+                                    <h3>Obras Recentes</h3>
+                                    <a href="#" onclick="showPage('obras')" class="btn-link">Ver todas</a>
+                                </div>
+                                <div class="card-content">
+                                    <div class="recent-works" id="recentWorks">
+                                        <!-- Recent works will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-card full-width">
+                                <div class="card-header">
+                                    <h3>Localização das Obras</h3>
+                                    <div class="map-controls">
+                                        <button class="btn-outline btn-sm" onclick="toggleMapView()">
+                                            <i class="fas fa-layer-group"></i> Camadas
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="map-container" id="mapContainer">
+                                        <div class="map-placeholder">
+                                            <i class="fas fa-map"></i>
+                                            <p>Mapa das obras será carregado aqui</p>
+                                            <button class="btn-primary" onclick="loadMap()">Carregar Mapa</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other page contents will be added here -->
+                    <div id="obrasContent" class="content-section">
+                        <div class="page-header">
+                            <h2>Gestão de Obras</h2>
+                            <button class="btn-primary" onclick="showNovaObra()">
+                                <i class="fas fa-plus"></i> Nova Obra
+                            </button>
+                        </div>
+                        
+                        <!-- Obras statistics -->
+                        <div class="mini-stats">
+                            <div class="mini-stat">
+                                <span class="mini-stat-number">156</span>
+                                <span class="mini-stat-label">Total</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-number">89</span>
+                                <span class="mini-stat-label">Em Andamento</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-number">45</span>
+                                <span class="mini-stat-label">Concluídas</span>
+                            </div>
+                            <div class="mini-stat">
+                                <span class="mini-stat-number">22</span>
+                                <span class="mini-stat-label">Atrasadas</span>
+                            </div>
+                        </div>
+
+                        <!-- Filters -->
+                        <div class="filters-card">
+                            <div class="filters-grid">
+                                <div class="filter-group">
+                                    <input type="text" placeholder="Buscar obras..." class="filter-input" id="obrasSearch">
+                                    <i class="fas fa-search filter-icon"></i>
+                                </div>
+                                <select class="filter-select" id="districtFilter">
+                                    <option value="">Todos os Distritos</option>
+                                    <option value="centro">Centro</option>
+                                    <option value="inoa">Inoã</option>
+                                    <option value="itaipuacu">Itaipuaçu</option>
+                                    <option value="ponta-negra">Ponta Negra</option>
+                                </select>
+                                <select class="filter-select" id="statusFilter">
+                                    <option value="">Todos os Status</option>
+                                    <option value="andamento">Em Andamento</option>
+                                    <option value="concluida">Concluída</option>
+                                    <option value="atrasada">Atrasada</option>
+                                </select>
+                                <button class="btn-outline" onclick="clearFilters()">Limpar</button>
+                            </div>
+                        </div>
+
+                        <!-- Works List -->
+                        <div class="works-list" id="worksList">
+                            <!-- Works will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Materials Page -->
+                    <div id="materiaisContent" class="content-section">
+                        <div class="page-header">
+                            <h2>Controle de Materiais</h2>
+                            <div class="header-actions">
+                                <button class="btn-outline" onclick="showSolicitarMaterial()">
+                                    <i class="fas fa-shopping-cart"></i> Solicitar Material
+                                </button>
+                                <button class="btn-primary admin-only" onclick="showNovoMaterial()">
+                                    <i class="fas fa-plus"></i> Novo Material
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Material Tabs -->
+                        <div class="tabs">
+                            <div class="tab-list">
+                                <button class="tab-button active" onclick="showMaterialTab('estoque')">Estoque</button>
+                                <button class="tab-button" onclick="showMaterialTab('solicitacoes')">Solicitações</button>
+                                <button class="tab-button" onclick="showMaterialTab('historico')">Histórico RM</button>
+                            </div>
+                            
+                            <div class="tab-content">
+                                <div id="estoqueTab" class="tab-panel active">
+                                    <div class="materials-grid" id="materialsGrid">
+                                        <!-- Materials will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                                
+                                <div id="solicitacoesTab" class="tab-panel">
+                                    <div class="requests-list" id="requestsList">
+                                        <!-- Requests will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                                
+                                <div id="historicoTab" class="tab-panel">
+                                    <div class="history-list" id="historyList">
+                                        <!-- History will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ordens de Serviço Content -->
+                <div id="ordensContent" class="content-section">
+                    <div class="page-header">
+                        <h2>Ordens de Serviço</h2>
+                        <button class="btn-primary" onclick="showNovaOS()">
+                            <i class="fas fa-plus"></i> Nova OS
+                        </button>
+                    </div>
+                    
+                    <div class="os-stats">
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="totalOS">0</span>
+                            <span class="mini-stat-label">Total</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="osAbertas">0</span>
+                            <span class="mini-stat-label">Abertas</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="osAndamento">0</span>
+                            <span class="mini-stat-label">Em Andamento</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="osConcluidas">0</span>
+                            <span class="mini-stat-label">Concluídas</span>
+                        </div>
+                    </div>
+
+                    <div class="filters-card">
+                        <div class="filters-grid">
+                            <div class="filter-group">
+                                <input type="text" placeholder="Buscar OS..." class="filter-input" id="osSearch">
+                                <i class="fas fa-search filter-icon"></i>
+                            </div>
+                            <select class="filter-select" id="osStatusFilter">
+                                <option value="">Todos os Status</option>
+                                <option value="aberta">Aberta</option>
+                                <option value="andamento">Em Andamento</option>
+                                <option value="concluida">Concluída</option>
+                                <option value="cancelada">Cancelada</option>
+                            </select>
+                            <select class="filter-select" id="osPrioridadeFilter">
+                                <option value="">Todas as Prioridades</option>
+                                <option value="baixa">Baixa</option>
+                                <option value="media">Média</option>
+                                <option value="alta">Alta</option>
+                                <option value="urgente">Urgente</option>
+                            </select>
+                            <button class="btn-outline" onclick="clearOSFilters()">Limpar</button>
+                        </div>
+                    </div>
+
+                    <div class="os-list" id="osList">
+                        <!-- OS list will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Cadastros Content -->
+                <div id="cadastrosContent" class="content-section">
+                    <div class="page-header">
+                        <h2>Cadastros do Sistema</h2>
+                    </div>
+                    
+                    <div class="cadastros-grid">
+                        <div class="cadastro-card" onclick="showPage('equipamentos')">
+                            <div class="cadastro-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h3>Equipamentos</h3>
+                            <p>Cadastro e controle de equipamentos</p>
+                            <span class="cadastro-count" id="equipamentosCount">0 itens</span>
+                        </div>
+                        
+                        <div class="cadastro-card" onclick="showPage('maquinario')">
+                            <div class="cadastro-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <h3>Maquinário</h3>
+                            <p>Gestão de máquinas e veículos</p>
+                            <span class="cadastro-count" id="maquinarioCount">0 itens</span>
+                        </div>
+                        
+                        <div class="cadastro-card" onclick="showPage('materiais')">
+                            <div class="cadastro-icon">
+                                <i class="fas fa-boxes"></i>
+                            </div>
+                            <h3>Materiais</h3>
+                            <p>Controle de estoque de materiais</p>
+                            <span class="cadastro-count" id="materiaisCount">0 itens</span>
+                        </div>
+                        
+                        <div class="cadastro-card" onclick="showPage('fornecedores')">
+                            <div class="cadastro-icon">
+                                <i class="fas fa-truck-loading"></i>
+                            </div>
+                            <h3>Fornecedores</h3>
+                            <p>Cadastro de fornecedores</p>
+                            <span class="cadastro-count" id="fornecedoresCount">0 itens</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usuários Content -->
+                <div id="usuariosContent" class="content-section">
+                    <div class="page-header">
+                        <h2>Gestão de Usuários</h2>
+                        <button class="btn-primary" onclick="showNovoUsuario()">
+                            <i class="fas fa-user-plus"></i> Novo Usuário
+                        </button>
+                    </div>
+                    
+                    <div class="users-stats">
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="totalUsers">0</span>
+                            <span class="mini-stat-label">Total</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="activeUsers">0</span>
+                            <span class="mini-stat-label">Ativos</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="adminUsers">0</span>
+                            <span class="mini-stat-label">Admins</span>
+                        </div>
+                        <div class="mini-stat">
+                            <span class="mini-stat-number" id="onlineUsers">0</span>
+                            <span class="mini-stat-label">Online</span>
+                        </div>
+                    </div>
+
+                    <div class="users-list" id="usersList">
+                        <!-- Users list will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Equipamentos Content -->
+                <div id="equipamentosContent" class="content-section">
+                    <div class="page-header">
+                        <h2>Cadastro de Equipamentos</h2>
+                        <button class="btn-primary" onclick="showNovoEquipamento()">
+                            <i class="fas fa-plus"></i> Novo Equipamento
+                        </button>
+                    </div>
+                    
+                    <div class="equipamentos-list" id="equipamentosList">
+                        <!-- Equipment list will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Fornecedores Content -->
+                <div id="fornecedoresContent" class="content-section">
+                    <div class="page-header">
+                        <h2>Cadastro de Fornecedores</h2>
+                        <button class="btn-primary" onclick="showNovoFornecedor()">
+                            <i class="fas fa-plus"></i> Novo Fornecedor
+                        </button>
+                    </div>
+                    
+                    <div class="fornecedores-list" id="fornecedoresList">
+                        <!-- Suppliers list will be populated here -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Chat Widget -->
+    <div id="chatWidget" class="chat-widget">
+        <div class="chat-header" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+            <span>Mensagens</span>
+            <span class="chat-badge" id="chatBadge">0</span>
+            <i class="fas fa-chevron-up chat-toggle-icon"></i>
+        </div>
+        <div class="chat-content" id="chatContent">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be populated here -->
+            </div>
+            <div class="chat-input" id="chatInput" style="display: none;">
+                <input type="text" placeholder="Digite sua mensagem..." id="messageInput">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/obras.js"></script>
+    <script src="js/materiais.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
