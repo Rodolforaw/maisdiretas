@@ -197,7 +197,7 @@ export default function OrdensPage() {
             <div className="flex h-14 items-center gap-4 px-6">
               <SidebarTrigger className="text-white hover:bg-blue-600" />
               <div className="flex-1">
-                <h1 className="text-lg font-medium">SIGELU Obras</h1>
+                <h1 className="text-lg font-medium">+ DIRETAS</h1>
               </div>
               <div className="flex items-center gap-4">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-blue-600">
